@@ -44,6 +44,33 @@ void calibrate()
   	sensors_black[i] = (max_value[i] + min_value[i]) / 2;
 }
 
+void calibrate_after()
+{
+	int min_value = sensors_byte[0];
+	int max_value = sensors_byte[0];
+
+	for(int i = 0; i < count_sensors; i++)
+	{
+		if(sensors_byte[i] < min_value) min_value = sensors_byte[i];
+		if(sensors_byte[i] > max_value) max_value = sensors_byte[i];
+	}
+
+	for(int i = 0; i < count_sensors; i++)
+		sensors_black[i] = (max_value + min_value) / 2;
+}
+
+
+void inversion()
+{
+	int average = 0;
+
+	for(int i = 0; i < count_sensors; i++)
+		average += sensors_byte[i];
+
+	average /= count_sensors;
+}
+
+
 void  readLine()
 {
   for(int i = 0; i < count_sensors;  i++)

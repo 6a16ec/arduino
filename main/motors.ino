@@ -1,4 +1,4 @@
-const byte AIN1 = 4; /* (!) requires revision (!) */ 
+const byte AIN1 = 4; /* (!) requires revision (!) !*/ 
 const byte AIN2 = 5; /* (!) requires revision (!) */ 
 const byte PWMA = 3; /* (!) requires revision (!) */ 
 

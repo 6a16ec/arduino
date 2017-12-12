@@ -1,13 +1,12 @@
-const byte AIN1 = 4;  /* (!) requires revision (!) */
-const byte AIN2 = 5;  /* (!) requires revision (!) */
-const byte PWMA = 3;  /* (!) requires revision (!) */
+const byte AIN1 = 4; /* (!) requires revision (!) */ 
+const byte AIN2 = 5; /* (!) requires revision (!) */ 
+const byte PWMA = 3; /* (!) requires revision (!) */ 
 
-const byte BIN1 = 7;  /* (!) requires revision (!) */
-const byte BIN2 = 8;  /* (!) requires revision (!) */
-const byte PWMB = 9;  /* (!) requires revision (!) */
+const byte BIN1 = 8; /* (!) requires revision (!) */ 
+const byte BIN2 = 7; /* (!) requires revision (!) */ 
+const byte PWMB = 9; /* (!) requires revision (!) */ 
 
 const byte STBY = 6; /* (!) requires revision (!) */
-
 
 
 

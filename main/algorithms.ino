@@ -74,7 +74,8 @@ void algorithm2()
   time_last = millis();
 }
 
-
+const int count_move = 2;
+const int turns[2] = {2, 12};
 int count_turns = 0; bool turn_now = 0;
 
 void check_turns()
@@ -88,6 +89,17 @@ void check_turns()
   {
     count_turns++;
     turn_now = 1;
+
+    for(int i = 0; i < count_move; i++)
+    {
+      if(turns[i] == count_turns)
+      {
+        motorsOnlySpeed(255, 0);
+        while(1)
+          if(sensors[4] == 0) break;
+      }
+      if(turns[i] > count_turns) break;
+    }
   }
   else turn_now = 0;
 }

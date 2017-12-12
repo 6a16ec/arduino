@@ -75,4 +75,20 @@ void algorithm2()
 }
 
 
+int count_turns = 0; bool turn_now = 0;
+
+void check_turns()
+{
+  byte count_black = 0;
+
+  for(int i = 0; i < 8; i++)
+    count_black += sensors[i];
+
+  if(turn_now == 0 && count_black >= 5) 
+  {
+    count_turns++;
+    turn_now = 1;
+  }
+  else turn_now = 0;
+}
 

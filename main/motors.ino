@@ -86,8 +86,12 @@ void motors(int left_speed, int  right_speed)
 //function for  control only speed of  motors, not  direction
 void motorsOnlySpeed(int left_speed, int  right_speed)
 {
-  left_speed  = abs(left_speed)*(left_speed>=0)%256;
-  right_speed = abs(right_speed)*(right_speed>=0)%256;
+  left_speed  = abs(left_speed)*(left_speed>=0);
+  if(left_speed > 255) left_speed = 255;
+
+  right_speed = abs(right_speed)*(right_speed>=0);
+  if(right_speed > 255) right = 255;
+
 
   analogWrite(PWMA, left_speed);
   analogWrite(PWMB, right_speed);    

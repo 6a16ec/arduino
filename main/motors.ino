@@ -90,7 +90,7 @@ void motorsOnlySpeed(int left_speed, int  right_speed)
   if(left_speed > 255) left_speed = 255;
 
   right_speed = abs(right_speed)*(right_speed>=0);
-  if(right_speed > 255) right = 255;
+  if(right_speed > 255) right_speed = 255;
 
 
   analogWrite(PWMA, left_speed);

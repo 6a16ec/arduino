@@ -28,6 +28,6 @@ void loop()
   
   bluetoothMonitoring();
 }
-
+//дорова, как оно?
 
 

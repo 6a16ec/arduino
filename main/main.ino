@@ -16,6 +16,7 @@ void setup()
   motorsForward();
 
   sensorsSetup();
+  calibrate();
   EEPROM_setup();
   bluetoothSetup();
  
@@ -29,5 +30,6 @@ void loop()
   bluetoothMonitoring();
 }
 //дорова, как оно?
+//збс
 
 

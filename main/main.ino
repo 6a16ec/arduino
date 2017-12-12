@@ -1,4 +1,6 @@
-byte  sensors[8]; /* (!) requires revision (!) */
+bool  sensors[8]; /* (!) requires revision (!) */
+byte  sensors_byte[8]; /* (!) requires revision (!) */
+
 String string_in; //string_in.clear();
 
 

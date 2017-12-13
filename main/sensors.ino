@@ -68,6 +68,27 @@ void inversion()
 		average += sensors_byte[i];
 
 	average /= count_sensors;
+
+
+	byte first = count_sensors-1, last = 0;
+
+	for(int i = 0; i < count_sensors; i++)
+	{
+		if(sensors[i] && i < first) first = i;
+		if(sensors[i] && i > last) last = i;
+	}
+
+	bool need_inversion = false;
+	for(int i = first+1; i < last; i++)
+	{
+		if(!(sensors[i])) 
+		{
+			need_inversion = true;
+			break;
+		}
+	}
+
+	for(int i = 0; i < count_sensors; i++) sensors[i] = !sensors[i];
 }
 
 

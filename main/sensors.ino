@@ -88,7 +88,7 @@ void inversion()
 		}
 	}
 
-	for(int i = 0; i < count_sensors; i++) sensors[i] = !sensors[i];
+	if(need_inversion) for(int i = 0; i < count_sensors; i++) sensors[i] = !sensors[i];
 }
 
 

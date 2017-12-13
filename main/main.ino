@@ -24,6 +24,7 @@ void setup()
 
 void loop()
 {
+  readLine();
   algorithm2();
   check_turns();
   

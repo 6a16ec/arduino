@@ -74,7 +74,7 @@ void algorithm2()
   time_last = millis();
 }
 
-const int count_move = 2; const int turns[2] = {2, 12};
+const int count_move = 2; const int turns[2] = {2, 12}; const String turns_dir[2] = {"left", "left"};
 int count_turns = 0; bool turn_now = 0;
 
 void check_turns()
@@ -93,17 +93,20 @@ void check_turns()
     {
       if(turns[i] == count_turns)
       {
-        motorsOnlySpeed(255, 0);
-        while(1)
-        {
-          readLine();
-          if(sensors[4] == 1) break;
-        }
-        while(1)
-        {
-          readLine();
-          if(sensors[4] == 0) break;
-        }
+        if(turns_dir[i] == "left") motorsOnlySpeed(0, 255);
+        if(turns_dir[i] == "right") motorsOnlySpeed(255, 0);
+
+        delay(100);
+                                /*while(1)
+                                {
+                                  readLine();
+                                  if(sensors[4] == 1) break;
+                                }
+                                while(1)
+                                {
+                                  readLine();
+                                  if(sensors[4] == 0) break;
+                                }*/
       }
       if(turns[i] > count_turns) break;
     }

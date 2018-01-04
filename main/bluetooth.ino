@@ -1,4 +1,4 @@
-#define count_data 20
+#define count_data 255
 char data[count_data] = {0};
 int addr = 0;
 
@@ -95,11 +95,13 @@ void bluetoothMonitoring()
 		{
 			parse();
 			addr = 0;
+      Serial.println("EEEEEEEEE");
 		}
 		else 
 		{
 			data[addr] = character;
 			addr ++;
+      if(addr > count_data) addr = 0;
 		}
 	} 
 }
@@ -109,11 +111,17 @@ void parse()
 {
 	String string = "";
 	String variable_name;
-	float variable_value;
-	
+	float variable_value;   
+  
 	for(int i = 0; i < addr; i++)
 	{
-		if(data[i] != "=") string += data[i];
+
+    if(data[i] == ' ') continue;
+    
+		if(data[i] != '=') 
+		{
+		  string += data[i];
+		}
 		else
 		{
 			variable_name = string;
@@ -121,6 +129,5 @@ void parse()
 		}
 	}
 	variable_value = string.toFloat();
-
 	variable_change(variable_name, variable_value);
 }

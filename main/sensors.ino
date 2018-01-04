@@ -1,6 +1,6 @@
 const byte count_sensors = 8; /* (!) requires revision (!) */
 
-const byte sensors_pins[8] = {A0, A1, A2, A3, A4, A5, A6, A7};	/* (!) requires revision (!) */
+const byte sensors_pins[8] = {A0, A1, A2, A3, A4, A5, A6, A7};  /* (!) requires revision (!) */
 //const  int sensors_pins[8] = {A7, A6, A5, A4, A3, A2, A1, A0};
 int sensors_black[8] = {0};
 
@@ -84,33 +84,20 @@ void calibrate_after()
 
 void inversion()
 {
-  int average = 0;
+  int count_black_zones = 0;
 
-  for (int i = 0; i < count_sensors; i++)
-    average += sensors_int[i];
+  bool color_now = sensors[0]; // 0 - white // 1 - black
 
-  average /= count_sensors;
-
-
-  byte first = count_sensors - 1, last = 0;
-
-  for (int i = 0; i < count_sensors; i++)
+  for(int i = 0; i < count_sensors; i++)
   {
-    if (sensors[i] && i < first) first = i;
-    if (sensors[i] && i > last) last = i;
-  }
-
-  bool need_inversion = false;
-  for (int i = first + 1; i < last; i++)
-  {
-    if (!(sensors[i]))
+    if(sensors[i] != color_now) 
     {
-      need_inversion = true;
-      break;
+      color_now = !color_now;
+      if(color_now == 1) count_black_zones += 1;
     }
   }
 
-  if (need_inversion) for (int i = 0; i < count_sensors; i++) sensors[i] = !sensors[i];
+  if (count_black_zones > 1) for (int i = 0; i < count_sensors; i++) sensors[i] = !sensors[i];
 }
 
 
@@ -132,4 +119,5 @@ void chek_sensors()
   Serial.println(" ");
 
 }
+
 

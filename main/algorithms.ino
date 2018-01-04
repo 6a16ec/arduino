@@ -59,7 +59,8 @@ void algorithm2()
   //  Serial.print(" ");
   //      Serial.print(prop);
   //  Serial.println(" ");
-
+  if (speed_left < 0) speed_left = 0;
+  if (speed_right < 0) speed_right = 0;
   /*
     Serial.print(speed_left);
     Serial.print(" ");

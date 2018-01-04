@@ -100,7 +100,7 @@ void bluetoothMonitoring()
 		{
 			data[addr] = character;
 			addr ++;
-      		if(addr > count_data) addr = 0;
+			if(addr > count_data) addr = 0;
 		}
 	} 
 }

@@ -19,12 +19,12 @@ void led_indication(byte number)
 void led_sensors_indication()
 {
   byte number = 0;
-  byte weight = 128;
+  byte weight = 1;
 
   for(int i = 0; i < countSensors(); i++)
   {
     number += weight*sensors[i];
-    weight /= 2;
+    weight *= 2;
   }
 
   led_indication(number);

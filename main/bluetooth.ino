@@ -90,5 +90,8 @@ void parse()
     if(string == "read" || string == "print" || string == "write") variable_write(variable_name);
 
   }
+
+  if(string == "stop") robot_work = false;
+  if(string == "start") robot_work = true;
 }
 

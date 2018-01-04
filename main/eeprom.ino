@@ -7,9 +7,6 @@ const String variables_type[variables_count] = {"int", "float", "float"}; /* (!)
 
 
 
-
-
-
 /* ### METHODS ###*/
 
 int variables_address[variables_count];

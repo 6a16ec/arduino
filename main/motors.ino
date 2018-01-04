@@ -1,10 +1,10 @@
-const byte AIN1 = 4; /* (!) requires revision (!) */ 
-const byte AIN2 = 5; /* (!) requires revision (!) */ 
-const byte PWMA = 3; /* (!) requires revision (!) */ 
+const byte AIN1 = 4; /* (!) requires revision (!) */
+const byte AIN2 = 5; /* (!) requires revision (!) */
+const byte PWMA = 3; /* (!) requires revision (!) */
 
-const byte BIN1 = 8; /* (!) requires revision (!) */ 
-const byte BIN2 = 7; /* (!) requires revision (!) */ 
-const byte PWMB = 9; /* (!) requires revision (!) */ 
+const byte BIN1 = 8; /* (!) requires revision (!) */
+const byte BIN2 = 7; /* (!) requires revision (!) */
+const byte PWMB = 9; /* (!) requires revision (!) */
 
 const byte STBY = 6; /* (!) requires revision (!) */
 
@@ -21,7 +21,7 @@ void motorsSetup()
   pinMode(BIN1, OUTPUT);
   pinMode(BIN2, OUTPUT);
   pinMode(PWMB, OUTPUT);
-  
+
   pinMode(STBY, OUTPUT);
 }
 
@@ -74,11 +74,11 @@ void motorsBackward()
 //function for control motors and direction
 void motors(int left_speed, int  right_speed)
 {
-  if(left_speed > 0) motorLeftForward();
-  if(left_speed < 0) motorLeftBackward();
-  
-  if(right_speed > 0) motorRightForward();
-  if(right_speed < 0) motorRightBackward();
+  if (left_speed > 0) motorLeftForward();
+  if (left_speed < 0) motorLeftBackward();
+
+  if (right_speed > 0) motorRightForward();
+  if (right_speed < 0) motorRightBackward();
 
   motorsOnlySpeed(left_speed, right_speed);
 }
@@ -86,13 +86,45 @@ void motors(int left_speed, int  right_speed)
 //function for  control only speed of  motors, not  direction
 void motorsOnlySpeed(int left_speed, int  right_speed)
 {
-  left_speed  = abs(left_speed)*(left_speed>=0);
-  if(left_speed > 255) left_speed = 255;
+  left_speed  = abs(left_speed);
+  if (left_speed > 255) left_speed = 255;
 
-  right_speed = abs(right_speed)*(right_speed>=0);
-  if(right_speed > 255) right_speed = 255;
+  right_speed = abs(right_speed);
+  if (right_speed > 255) right_speed = 255;
 
 
   analogWrite(PWMA, left_speed);
-  analogWrite(PWMB, right_speed);    
+  analogWrite(PWMB, right_speed);
 }
+
+void right()
+{
+  motors(150, -150);
+  delay(300);
+  while (1)
+  {
+    motors(150, -150);
+    readLine();
+    if (sensors[4] == 1 || sensors [8] == 1)
+    {
+      break;
+    }
+  }
+  motors(150, 150);
+}
+void left()
+{
+  motors(-150, 150);
+  delay(300);
+  while (1)
+  {
+    motors(-150, 150);
+    readLine();
+    if (sensors[4] == 1 || sensors[1] == 1)
+    {
+      break;
+    }
+  }
+  motors(150, 150);
+}
+

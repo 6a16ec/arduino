@@ -18,7 +18,7 @@ void beep_OFF() {digitalWrite(beepPin, LOW);}
 
 void beep(int count_beeps = 1)
 {
-  cout = count_beeps;
+  count = count_beeps;
   beep_check();
 }
 
@@ -32,7 +32,7 @@ void beep_check()
 	if(!beep_play && count > 0 && millis() - last_time >= time_beep_break)
 	{
 		beep_ON(); 
-		cout -= 1;
+		count -= 1;
 		last_time = millis();
 	}
 }

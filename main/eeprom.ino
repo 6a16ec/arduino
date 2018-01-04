@@ -24,7 +24,7 @@ void EEPROM_setup()
     if(variables_type[i] == "float") address += 4;
   }
 
-  fromEEPROM("all_variables");
+  fromEEPROM("all");
 }
 
 
@@ -32,13 +32,13 @@ void fromEEPROM(String name)
 {
   for(int i = 0; i < variables_count; i++)
   {
-    if(variables_name[i] == name || name == "all_variables")
+    if(variables_name[i] == name || name == "all")
     {
       if(variables_type[i] == "byte") variables[i] = EEPROM_readByte(variables_address[i]);
       if(variables_type[i] == "int") variables[i] = EEPROM_readInt(variables_address[i]);
       if(variables_type[i] == "float") variables[i] = EEPROM_readByte(variables_address[i]);
 
-      if(name != "all_variables") break;
+      if(name != "all") break;
     }
   }
 }
@@ -47,13 +47,13 @@ void toEEPROM(String name)
 {
   for(int i = 0; i < variables_count; i++)
   {
-    if(variables_name[i] == name || name == "all_variables")
+    if(variables_name[i] == name || name == "all")
     {
       if(variables_type[i] == "byte") EEPROM_writeByte(variables_address[i], variables[i]);
       if(variables_type[i] == "int") EEPROM_writeInt(variables_address[i], variables[i]);
       if(variables_type[i] == "float") EEPROM_writeByte(variables_address[i], variables[i]);
 
-      if(name != "all_variables") break;
+      if(name != "all") break;
     }
   }
 }
@@ -79,6 +79,18 @@ void variable_change(String name, double number)
       break;
     }
   }
+}
+
+void variable_write(String name)
+{
+  for(int i = 0; i < variables_count; i++)
+  {
+    if(variables_name[i] == name || name == "all")
+    {
+      Serial.print(variables_name[i] + " = "); Serial.println(variables[i]);
+    }
+  }
+  Serial.println("_ _ _ _ _");
 }
 
 void EEPROM_writeByte(int addr, byte num) {
@@ -114,6 +126,7 @@ float EEPROM_readFloat(int addr) {
   float &num = (float&)raw;
   return num;
 }
+
 
 
 

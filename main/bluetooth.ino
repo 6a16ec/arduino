@@ -105,7 +105,6 @@ void bluetoothMonitoring()
 	} 
 }
 
-
 void parse()
 {
 	String string = "";

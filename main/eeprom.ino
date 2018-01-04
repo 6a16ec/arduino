@@ -39,7 +39,7 @@ void fromEEPROM(String name)
 
       if(variables_type[i] == "byte") variables[i] = EEPROM_readByte(variables_address[i]);
       if(variables_type[i] == "int") variables[i] = EEPROM_readInt(variables_address[i]);
-      if(variables_type[i] == "float") variables[i] = EEPROM_readByte(variables_address[i]);
+      if(variables_type[i] == "float") variables[i] = EEPROM_readFloat(variables_address[i]);
 
       if(writeDebugInfo) Serial.println(String(variables[i]) + " (fromEEPROM)");
 
@@ -58,7 +58,7 @@ void toEEPROM(String name)
 
       if(variables_type[i] == "byte") EEPROM_writeByte(variables_address[i], variables[i]);
       if(variables_type[i] == "int") EEPROM_writeInt(variables_address[i], variables[i]);
-      if(variables_type[i] == "float") EEPROM_writeByte(variables_address[i], variables[i]);
+      if(variables_type[i] == "float") EEPROM_writeFloat(variables_address[i], variables[i]);
 
       if(name != "all") break;
     }

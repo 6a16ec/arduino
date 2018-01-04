@@ -34,7 +34,12 @@ void loop()
     motors(0, 0);
     Serial.println("robot stop");
 
-    while(!robot_work) bluetoothMonitoring();
+    while(!robot_work) 
+    {
+      readLine();
+      led_sensors_indication();
+      bluetoothMonitoring();
+    }
 
     Serial.println("robot start");
   }

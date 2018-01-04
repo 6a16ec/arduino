@@ -4,7 +4,7 @@
 const String variables_name[variables_count] = {"speed", "kp", "kd"}; /* (!) requires revision (!) */
 const String variables_type[variables_count] = {"int", "float", "float"}; /* (!) requires revision (!) */
 
-
+const bool writeDebugInfo = true;
 
 
 /* ### METHODS ###*/
@@ -25,6 +25,7 @@ void EEPROM_setup()
   }
 
   fromEEPROM("all");
+  if(writeDebugInfo) variable_write("all");
 }
 
 
@@ -34,9 +35,13 @@ void fromEEPROM(String name)
   {
     if(variables_name[i] == name || name == "all")
     {
+      if(writeDebugInfo) Serial.print("local variable " + String(variables_name[i]) + " change from " + String(variables[i]) + " to ");
+
       if(variables_type[i] == "byte") variables[i] = EEPROM_readByte(variables_address[i]);
       if(variables_type[i] == "int") variables[i] = EEPROM_readInt(variables_address[i]);
       if(variables_type[i] == "float") variables[i] = EEPROM_readByte(variables_address[i]);
+
+      if(writeDebugInfo) Serial.println(String(variables[i]) + " (fromEEPROM)");
 
       if(name != "all") break;
     }
@@ -49,6 +54,8 @@ void toEEPROM(String name)
   {
     if(variables_name[i] == name || name == "all")
     {
+      if(writeDebugInfo) Serial.println("global variable " + String(variables_name[i]) + " change to " + String(variables[i]) + " (toEEPROM)");
+
       if(variables_type[i] == "byte") EEPROM_writeByte(variables_address[i], variables[i]);
       if(variables_type[i] == "int") EEPROM_writeInt(variables_address[i], variables[i]);
       if(variables_type[i] == "float") EEPROM_writeByte(variables_address[i], variables[i]);
@@ -75,7 +82,9 @@ void variable_change(String name, double number)
   {
     if(variables_name[i] == name)
     {
+      if(writeDebugInfo) Serial.print("local variable " + String(variables_name[i]) + " change from " + String(variables[i]) + " to ");
       variables[i] = number;
+      if(writeDebugInfo) Serial.println(String(variables[i]) + " (variable_change)");
       break;
     }
   }

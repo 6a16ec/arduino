@@ -88,16 +88,10 @@ void chek_perek ()
   {
     count_turns++;
     turn_now = 1;
-    digitalWrite(2, HIGH);
-    l_time = millis();
   }
   else if (count_black < 3)
   {
     turn_now = 0;
-  }
-  if (millis() - l_time > 600)
-  {
-    digitalWrite(2, LOW);
   }
   /* switch (count_turns)
     {

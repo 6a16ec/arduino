@@ -39,24 +39,32 @@ void motorLeftForward()
 {
   digitalWrite(AIN1, 1);
   digitalWrite(AIN2, 0);
+  
+  analogWrite(PWMA, 0);
 }
 
 void motorLeftBackward()
 {
   digitalWrite(AIN1, 0);
   digitalWrite(AIN2, 1);
+
+  analogWrite(PWMA, 0);
 }
 
 void motorRightForward()
 {
   digitalWrite(BIN1, 1);
   digitalWrite(BIN2, 0);
+
+  analogWrite(PWMB, 0);
 }
 
 void motorRightBackward()
 {
   digitalWrite(BIN1, 0);
   digitalWrite(BIN2, 1);
+
+  analogWrite(PWMB, 0);
 }
 
 void motorsForward()

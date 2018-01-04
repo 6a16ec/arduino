@@ -91,17 +91,16 @@ void bluetoothMonitoring()
 		char character; 
 		character = Serial.read(); 
 
-		if(character == '\n') 
+		if(character == '\n' || character == ';') 
 		{
 			parse();
 			addr = 0;
-      Serial.println("EEEEEEEEE");
 		}
 		else 
 		{
 			data[addr] = character;
 			addr ++;
-      if(addr > count_data) addr = 0;
+      		if(addr > count_data) addr = 0;
 		}
 	} 
 }

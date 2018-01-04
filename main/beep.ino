@@ -27,11 +27,15 @@ void beep_check()
 	if(beep_play && millis() - last_time >= time_beep_play) 
 	{
 		beep_OFF(); 
+
+		beep_play = false;
 		last_time = millis();
 	}
 	if(!beep_play && count > 0 && millis() - last_time >= time_beep_break)
 	{
 		beep_ON(); 
+
+		beep_play = true;
 		count -= 1;
 		last_time = millis();
 	}

@@ -23,6 +23,8 @@ void motorsSetup()
   pinMode(PWMB, OUTPUT);
 
   pinMode(STBY, OUTPUT);
+
+  motorsON();
 }
 
 void  motorsON()
@@ -39,7 +41,7 @@ void motorLeftForward()
 {
   digitalWrite(AIN1, 1);
   digitalWrite(AIN2, 0);
-  
+
   analogWrite(PWMA, 0);
 }
 

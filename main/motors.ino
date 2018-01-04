@@ -90,16 +90,16 @@ void motors(int left_speed, int  right_speed)
   if (right_speed > 0) motorRightForward();
   if (right_speed < 0) motorRightBackward();
 
-  motorsOnlySpeed(left_speed, right_speed);
+  motorsOnlySpeed(abs(left_speed), abs(right_speed));
 }
 
 //function for  control only speed of  motors, not  direction
 void motorsOnlySpeed(int left_speed, int  right_speed)
 {
-  left_speed  = abs(left_speed);
+  if (left_speed < 0) left_speed = 0;
   if (left_speed > 255) left_speed = 255;
 
-  right_speed = abs(right_speed);
+  if (right_speed < 0) right_speed = 0;
   if (right_speed > 255) right_speed = 255;
 
 

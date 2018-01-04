@@ -1,7 +1,5 @@
 bool  sensors[8]; /* (!) requires revision (!) */
-int  sensors_byte[8]; /* (!) requires revision (!) */
-
-String string_in; //string_in.clear();
+int  sensors_int[8]; /* (!) requires revision (!) */
 
 
 
@@ -11,6 +9,7 @@ String string_in; //string_in.clear();
 void setup()
 {
   led_setup();
+  beepSetup();
 
   motorsSetup();
   motorsON();
@@ -30,13 +29,15 @@ void setup()
 
 void loop()
 {
+  readLine();
+  beep_check();
   //chek_sensors();
   led_sensors_indication();
-  readLine();
   algorithm2();
   // check_turns();
   //chek_perek();
-  blue_debug();
+  //blue_debug();
+  bluetoothMonitoring();
 
 }
 

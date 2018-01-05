@@ -1,6 +1,10 @@
 bool  sensors[8]; /* (!) requires revision (!) */
 int  sensors_int[8]; /* (!) requires revision (!) */
 
+#define analogRead analogReadFast
+#define digitalRead digitalReadFast
+#define digitalWrite digitalWriteFast
+
 bool robot_work = true;
 
 /* ### METHODS ###*/

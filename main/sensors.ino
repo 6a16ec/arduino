@@ -86,7 +86,7 @@ void inversion()
 {
   int count_black_zones = 0;
 
-  bool color_now = sensors[0]; // 0 - white // 1 - black
+  bool color_now = 0; // 0 - white // 1 - black
 
   for(int i = 0; i < count_sensors; i++)
   {

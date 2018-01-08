@@ -84,9 +84,12 @@ void calibrate_after()
 
 void inversion()
 {
+  bool need_inversion = false;
+
   int count_black_zones = 0;
 
   bool color_now = 0; // 0 - white // 1 - black
+
 
   for(int i = 0; i < count_sensors; i++)
   {
@@ -97,7 +100,11 @@ void inversion()
     }
   }
 
-  if (count_black_zones > 1) for (int i = 0; i < count_sensors; i++) sensors[i] = !sensors[i];
+  if (count_black_zones > 1) need_inversion = true;
+
+  if (count_black_zones == 1 && (sensors[0] == 1 || sensors[count_sensors-1] == 1)) need_inversion = true;
+
+  if(need_inversion) for (int i = 0; i < count_sensors; i++) sensors[i] = !sensors[i];
 }
 
 

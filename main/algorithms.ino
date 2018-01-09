@@ -42,8 +42,8 @@ void algorithm2()
   Output = variable ("kp") * error + variable ("ki") * errSum + variable ("kd") * dErr;;
 
   /**/
-  float speed_left = variable("speed") + Output;
-  float speed_right = variable("speed") - Output;
+  float speed_left = variable("speed") - Output;
+  float speed_right = variable("speed") + Output;
 
   if (speed_left < 0) speed_left = 0;
   if (speed_right < 0) speed_right = 0;

@@ -1,11 +1,10 @@
 #include <EEPROM.h>
-#define variables_count  3 /* (!) requires revision (!) */
+#define variables_count  4 /* (!) requires revision (!) */
 
-const String variables_name[variables_count] = {"speed", "kp", "kd"}; /* (!) requires revision (!) */
-const String variables_type[variables_count] = {"int", "float", "float"}; /* (!) requires revision (!) */
+const String variables_name[variables_count] = {"speed", "kp", "kd", "ki"}; /* (!) requires revision (!) */
+const String variables_type[variables_count] = {"int", "float", "float", "float"}; /* (!) requires revision (!) */
 
 const bool writeDebugInfo = true;
-
 
 /* ### METHODS ###*/
 

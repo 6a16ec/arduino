@@ -16,66 +16,51 @@ void algorithm1()
   motorsOnlySpeed(left_speed, right_speed);
 }
 
+/*working variables*/
+unsigned long lastTime;                                                     //последнее время
+double errSum, lastErr, error;                                              //сумма ошибок, последняя ошибка, ошибка
+double sensors_weight[8] = { -4, -3, -2, -1, 1, 2, 3, 4};                   //вес сенсоров
 void algorithm2()
 {
-  float array_weight[8] = { -4, -3, -2, -1, 1, 2, 3, 4};
-  int len = 8;
-
-  /*for(int i = 0; i < len/2; i++)
-    array_weight[i] = (-1)*(len/2 - i);
-
-    for(int i = len/2; i < len; i++)
-    array_weight[i] = (i - len/2) + 1;*/
-
-  float wi = 0;
-  float bi = 0;
-  for (int i = 0; i < len; i++)
+  double sum_weight_sensors, Output, count_sensors_on_black;                  //входные значения, выходные значения, заданное значение
+  for (int i = 0; i < 8; i++)
   {
-    wi += array_weight[i] * sensors[i];
-    bi += sensors[i];
+    sum_weight_sensors += sensors_weight[i] * sensors[i];                    // сумма весов сенсоров
+    count_sensors_on_black += sensors[i];                                    //количество сенсоров на черном
   }
-  float e;
-  if (bi == 0) e = e_last;
-  else e = wi / (4 * bi);
+  if (count_sensors_on_black == 0) error = lastErr;
+  else error = sum_weight_sensors / (4 * count_sensors_on_black);            //формула, которая работает
+  /*Как давно мы рассчитывали*/
+  unsigned long now = millis();                                              //время сейчас
+  double timeChange = (double)(now - lastTime);                              //настоящее - прошлое, промежуток времени
 
-  /*Serial.print(e);
-    Serial.print(" ");
-    Serial.print(speed1);
-    Serial.print(" ");
-    Serial.print(wi);
-    Serial.print(" ");
-      Serial.print(bi);
-    Serial.print(" ");*/
-  float delta_e = e - e_last;
-  float delta_time = millis() - time_last;
-  float prop = (float)((float)e * (float)variable("kp"));
-  float speed_left =  variable("speed") - ((prop) + (delta_e / delta_time) * variable("kd"));
-  float speed_right = variable("speed") + (prop) + (delta_e / delta_time) * variable("kd");
-  //
-  //  //Serial.print(delta_e / delta_time);
-  //   Serial.print(delta_e);
-  //  Serial.print(" ");
-  //      Serial.print(delta_time);
-  //  Serial.print(" ");
-  //      Serial.print(prop);
-  //  Serial.println(" ");
+  /*Вычисляем все переменные рабочей ошибки*/
+  errSum += (error * timeChange);                                            // сумма ошбок = ошибка * (настоящее - прошлое)
+  double dErr = (error - lastErr) / timeChange;                              //ошибка - прошлая ошибка /  (настоящее - прошлое)
+
+  /*Вычисляем выходной сигнал PID*/
+  Output = variable ("kp") * error + variable ("ki") * errSum + variable ("kd") * dErr;;
+
+  /**/
+  float speed_left = variable("speed") + Output;
+  float speed_right = variable("speed") - Output;
+
   if (speed_left < 0) speed_left = 0;
   if (speed_right < 0) speed_right = 0;
-  /*
-    Serial.print(speed_left);
-    Serial.print(" ");
-    Serial.print(speed_right);
-    Serial.println(" ");
-    Serial.print(prop);
-    Serial.println(" ");
-  */
+/*
+  Serial.print(speed_left);
+  Serial.print(" ");
+  Serial.print(speed_right);
+  Serial.print(" ");
+  Serial.println(error);
+*/
   motorsOnlySpeed(speed_left, speed_right);
 
-  e_last = e;
-  time_last = millis();
+  /*Запоминаем некоторые переменные для следующего раза*/
+  lastErr = error;
+  lastTime = now;
 }
 
-const int count_move = 2; const int turns[2] = {2, 12};
 int count_turns = 0; bool turn_now = 0;
 long unsigned int l_time = 0;
 void chek_perek ()
@@ -83,11 +68,11 @@ void chek_perek ()
   int count_black = 0;
   for (int i = 0; i < 8; i++)
     count_black += sensors[i];
-
   if (turn_now == 0 && count_black >= 6)
   {
     count_turns++;
     turn_now = 1;
+    //beep(1);
   }
   else if (count_black < 3)
   {
@@ -95,52 +80,23 @@ void chek_perek ()
   }
   /* switch (count_turns)
     {
-      case 1:
-        left();
-        count_turns++;
-        break;
-      case 2:
-        motorsOFF();
-        break;
-    }*/
+     case 1:
 
-}
-void check_turns()
-{
-  byte count_black = 0;
+       inver = true;
+       count_turns++;
+       break;
+     case 2:
 
-  for (int i = 0; i < 8; i++)
-    count_black += sensors[i];
+       break;
+     case 3:
 
-  if (turn_now == 0 && count_black >= 5)
-  {
-    count_turns++;
-    turn_now = 1;
-
-    for (int i = 0; i < count_move; i++)
-    {
-      if (turns[i] == count_turns)
-      {
-        motorsOnlySpeed(255, 0);
-        while (1)
-        {
-          readLine();
-          if (sensors[4] == 1) break;
-        }
-        while (1)
-        {
-          readLine();
-          if (sensors[4] == 0) break;
-        }
-      }
-      if (turns[i] > count_turns) break;
+       break;
+     case 4:
+       inver = false;
+       break;
+     case 5:
+       motorsOFF();
+       break;
     }
-  }
-  else turn_now = 0;
+  */
 }
-
-
-
-
-
-
